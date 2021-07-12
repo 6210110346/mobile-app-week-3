@@ -31,6 +31,7 @@ class _StarwarList extends State<StarwarList> {
     var _people = await repo.fetchPeople(page: _page);
     setState(() {
       _people.addAll(_people);
+      _page++;
       _loading = false;
       _error = false;
     });
@@ -44,22 +45,22 @@ class _StarwarList extends State<StarwarList> {
 
   @override
   Widget build(BuildContext context) {
-    if (_loading)
-      return Center(
-        child: CircularProgressIndicator(),
-      );
-    else
-      return ListView.builder(
-          itemCount: _people.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Row(
-                children: [
-                  Text('${_people[index].id} '),
-                  Text(_people[index].name),
-                ],
-              ),
-            );
-          });
+    // if (_loading)
+    //   return Center(
+    //     child: CircularProgressIndicator(),
+    //   );
+    // else
+    return ListView.builder(
+        itemCount: _people.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Row(
+              children: [
+                Text('${_people[index].id} '),
+                Text(_people[index].name),
+              ],
+            ),
+          );
+        });
   }
 }
