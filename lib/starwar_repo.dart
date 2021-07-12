@@ -1,11 +1,18 @@
 import 'package:dio/dio.dart';
 
 class People {
+  final String id;
   final String name;
-  People(this.name);
+  People(this.id, this.name);
 
   factory People.fromJson(json) {
-    return People(json['name']);
+    var id = json['url']
+        .split('https://swapi.dev/api/people/')
+        .last
+        .split('/')
+        .first;
+
+    return People(id, json['name']);
   }
 }
 
