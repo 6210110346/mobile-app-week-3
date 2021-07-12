@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+
 class People {
   final String name;
   People(this.name);
@@ -7,4 +9,10 @@ class People {
   }
 }
 
-class StarwarRepo {}
+class StarwarRepo {
+  Future<List<People>> fetchPeople({required int page}) async {
+    var response = await Dio().get('https://swapi.dev/api/people/?page=$page');
+    var results = response.data['results'] as List;
+    return results.map((data) => People.fromJson(data)).toList();
+  }
+}
